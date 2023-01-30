@@ -1,5 +1,5 @@
 import { Container, Content } from "./styles";
-import logoImg from "../../../public/favicon.png";
+import logoImg from "../../assets/favicon.png";
 
 const Header = () => {
   return (
