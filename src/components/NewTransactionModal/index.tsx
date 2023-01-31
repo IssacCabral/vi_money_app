@@ -1,9 +1,10 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Modal from "react-modal";
 
 import closeImg from "../../assets/close.svg";
 import incomeImg from "../../assets/income.svg";
 import outcomeImg from "../../assets/outcome.svg";
+import { api } from "../../services/api";
 
 import { Container, TransactionTypeContainer, RadioBox } from "./styles";
 
@@ -12,22 +13,41 @@ interface NewTransactionModalProps {
   onRequestClose: () => void;
 }
 
+interface Category {
+  id: string;
+  userId: string;
+  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 const NewTransactionModal = (props: NewTransactionModalProps) => {
   const [title, setTitle] = useState<string>("");
   const [amount, setAmount] = useState<number>(0);
-  const [category, setCategory] = useState<string>("");
   const [type, setType] = useState<string>("deposit");
   const [selectedCategory, setSelectedCategory] = useState("");
+
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NjY2ZGNjMC00NmQ3LTRmOTQtOGE5YS02MTFhMDgzNGRlZTgiLCJlbWFpbCI6Imlzc2FjQGVtYWlsLmNvbSIsImlhdCI6MTY3NTIwNDM3NywiZXhwIjoxNjc1MjkwNzc3fQ.8Da_2trJ-VLHYWEvLr7N2EOYZt7RRSYG9LFNhdZi57o";
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    api
+      .get("/categories/user?page=1&limit=5", config)
+      .then((response) => console.log(response.data));
+  }, []);
 
   async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
 
     setTitle("");
     setAmount(0);
-    setCategory("");
+    setSelectedCategory("");
     setType("deposit");
-
-    console.log("categoria selecionada: " + selectedCategory);
 
     props.onRequestClose();
   }
@@ -90,7 +110,6 @@ const NewTransactionModal = (props: NewTransactionModalProps) => {
           name="select"
           value={selectedCategory}
           onChange={(event) => setSelectedCategory(event.target.value)}
-          placeholder="Escolha a Categoria"
         >
           <option value="valor1">Valor1</option>
           <option value="valor2">Valor2</option>
