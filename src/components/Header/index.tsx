@@ -1,7 +1,11 @@
 import { Container, Content } from "./styles";
 import logoImg from "../../assets/favicon.png";
 
-const Header = () => {
+interface HeaderProps {
+  onOpenNewTransactionModal: () => void;
+}
+
+const Header = (props: HeaderProps) => {
   return (
     <Container>
       <Content>
@@ -11,7 +15,9 @@ const Header = () => {
             <h2>Vi Money</h2>
           </p>
         </div>
-        <button>Nova transação</button>
+        <button onClick={props.onOpenNewTransactionModal}>
+          Nova transação
+        </button>
       </Content>
     </Container>
   );
