@@ -54,7 +54,6 @@ const NewTransactionModal = (props: NewTransactionModalProps) => {
         <input
           placeholder="Valor"
           type="number"
-          value={amount}
           onChange={(event) => setAmount(Number(event.target.value))}
         />
 
