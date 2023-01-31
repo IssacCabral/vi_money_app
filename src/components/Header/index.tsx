@@ -11,9 +11,7 @@ const Header = (props: HeaderProps) => {
       <Content>
         <div>
           <img src={logoImg} alt="" />
-          <p>
-            <h2>Vi Money</h2>
-          </p>
+          <h2>Vi Money</h2>
         </div>
         <button onClick={props.onOpenNewTransactionModal}>
           Nova transação
