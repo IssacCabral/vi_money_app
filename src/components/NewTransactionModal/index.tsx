@@ -17,6 +17,7 @@ const NewTransactionModal = (props: NewTransactionModalProps) => {
   const [amount, setAmount] = useState<number>(0);
   const [category, setCategory] = useState<string>("");
   const [type, setType] = useState<string>("deposit");
+  const [selectedCategory, setSelectedCategory] = useState("categoria1");
 
   async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
@@ -25,6 +26,9 @@ const NewTransactionModal = (props: NewTransactionModalProps) => {
     setAmount(0);
     setCategory("");
     setType("deposit");
+
+    console.log("categoria selecionada: " + selectedCategory);
+
     props.onRequestClose();
   }
 
@@ -54,7 +58,10 @@ const NewTransactionModal = (props: NewTransactionModalProps) => {
         <input
           placeholder="Valor"
           type="number"
+          value={amount}
           onChange={(event) => setAmount(Number(event.target.value))}
+          min={0}
+          step="any"
         />
 
         <TransactionTypeContainer>
@@ -84,6 +91,16 @@ const NewTransactionModal = (props: NewTransactionModalProps) => {
           value={category}
           onChange={(event) => setCategory(event.target.value)}
         />
+
+        <select
+          name="select"
+          value={selectedCategory}
+          onChange={(event) => setSelectedCategory(event.target.value)}
+        >
+          <option value="valor1">Valor1</option>
+          <option value="valor2">Valor2</option>
+          <option value="valor3">Valor3</option>
+        </select>
 
         <button type="submit">Cadastrar</button>
       </Container>
