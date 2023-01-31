@@ -17,7 +17,7 @@ const NewTransactionModal = (props: NewTransactionModalProps) => {
   const [amount, setAmount] = useState<number>(0);
   const [category, setCategory] = useState<string>("");
   const [type, setType] = useState<string>("deposit");
-  const [selectedCategory, setSelectedCategory] = useState("categoria1");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
@@ -86,16 +86,11 @@ const NewTransactionModal = (props: NewTransactionModalProps) => {
           </RadioBox>
         </TransactionTypeContainer>
 
-        <input
-          placeholder="Categoria"
-          value={category}
-          onChange={(event) => setCategory(event.target.value)}
-        />
-
         <select
           name="select"
           value={selectedCategory}
           onChange={(event) => setSelectedCategory(event.target.value)}
+          placeholder="Escolha a Categoria"
         >
           <option value="valor1">Valor1</option>
           <option value="valor2">Valor2</option>
