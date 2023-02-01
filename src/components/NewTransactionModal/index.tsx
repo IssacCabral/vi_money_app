@@ -7,6 +7,7 @@ import outcomeImg from "../../assets/outcome.svg";
 import CategorySelect from "./CategorySelect";
 
 import { Container, TransactionTypeContainer, RadioBox } from "./styles";
+import TransactionType from "./TransactionType";
 
 interface NewTransactionModalProps {
   isOpen: boolean;
@@ -21,6 +22,10 @@ const NewTransactionModal = (props: NewTransactionModalProps) => {
 
   function handleSelectCategory(categoryName: string) {
     setSelectedCategory(categoryName);
+  }
+
+  function handleSelectTransactionType(transactionType: string) {
+    setType(transactionType);
   }
 
   async function handleCreateNewTransaction(event: FormEvent) {
@@ -66,27 +71,9 @@ const NewTransactionModal = (props: NewTransactionModalProps) => {
           step="any"
         />
 
-        <TransactionTypeContainer>
-          <RadioBox
-            type="button"
-            onClick={() => setType("deposit")}
-            isActive={type === "deposit"}
-            activeColor="green"
-          >
-            <img src={incomeImg} alt="Entrada" />
-            <span>Entrada</span>
-          </RadioBox>
-
-          <RadioBox
-            type="button"
-            onClick={() => setType("withdraw")}
-            isActive={type === "withdraw"}
-            activeColor="red"
-          >
-            <img src={outcomeImg} alt="Saída" />
-            <span>Saída</span>
-          </RadioBox>
-        </TransactionTypeContainer>
+        <TransactionType
+          onSelectTransactionType={handleSelectTransactionType}
+        />
 
         <CategorySelect onSelectCategory={handleSelectCategory} />
 
