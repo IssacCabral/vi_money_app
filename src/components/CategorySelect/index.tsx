@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
+import { Container } from "./styles";
 
 interface Category {
   id: string;
@@ -37,7 +38,7 @@ const CategorySelect = (props: CategorySelectProps) => {
   }, []);
 
   return (
-    <select
+    <Container
       name="select"
       value={selectedCategory}
       onChange={(event) => handleSelectCategory(event)}
@@ -49,7 +50,7 @@ const CategorySelect = (props: CategorySelectProps) => {
           </option>
         );
       })}
-    </select>
+    </Container>
   );
 };
 

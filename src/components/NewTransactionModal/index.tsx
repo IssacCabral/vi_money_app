@@ -27,8 +27,6 @@ const NewTransactionModal = (props: NewTransactionModalProps) => {
   async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
 
-    console.log(selectedCategory);
-
     setTitle("");
     setAmount(0);
     setSelectedCategory("");
