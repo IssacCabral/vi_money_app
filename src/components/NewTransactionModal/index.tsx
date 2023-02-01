@@ -36,9 +36,10 @@ const NewTransactionModal = (props: NewTransactionModalProps) => {
       headers: { Authorization: `Bearer ${token}` },
     };
 
-    api
-      .get("/categories/user?page=1&limit=5", config)
-      .then((response) => console.log(response.data));
+    api.get("/categories/user?page=1&limit=20", config).then((response) => {
+      const categoriesData = response.data.data;
+      setCategories(categoriesData);
+    });
   }, []);
 
   async function handleCreateNewTransaction(event: FormEvent) {
@@ -111,9 +112,13 @@ const NewTransactionModal = (props: NewTransactionModalProps) => {
           value={selectedCategory}
           onChange={(event) => setSelectedCategory(event.target.value)}
         >
-          <option value="valor1">Valor1</option>
-          <option value="valor2">Valor2</option>
-          <option value="valor3">Valor3</option>
+          {categories.map((category) => {
+            return (
+              <option key={category.id} value={category.name}>
+                {category.name}
+              </option>
+            );
+          })}
         </select>
 
         <button type="submit">Cadastrar</button>
