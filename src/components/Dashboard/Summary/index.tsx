@@ -1,8 +1,8 @@
 import { Container } from "./styles";
 
-import incomeImg from "../../assets/income.svg";
-import outcomeImg from "../../assets/outcome.svg";
-import totalImg from "../../assets/total.svg";
+import incomeImg from "../../../assets/income.svg";
+import outcomeImg from "../../../assets/outcome.svg";
+import totalImg from "../../../assets/total.svg";
 
 const Summary = () => {
   return (
