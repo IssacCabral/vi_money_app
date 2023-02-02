@@ -24,7 +24,7 @@ export const Content = styled.div`
     }
   }
 
-  button {
+  #new_transaction_button {
     font-size: 1rem;
     color: #ffffff;
     background: var(--green-light);
@@ -34,6 +34,24 @@ export const Content = styled.div`
     height: 3rem;
 
     transition: filter 0.2s;
+
+    &:hover {
+      filter: brightness(0.9);
+    }
+  }
+
+  #new_category_button {
+    font-size: 1rem;
+    color: #ffffff;
+    background: var(--shape);
+    border: 0;
+    padding: 0 2rem;
+    border-radius: 0.25rem;
+    height: 3rem;
+
+    transition: filter 0.2s;
+
+    margin-right: 3rem;
 
     &:hover {
       filter: brightness(0.9);

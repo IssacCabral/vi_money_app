@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
     --green: #015F43;
 
     --green-light: #00875F;
+    --blue-light: #6933ff;
 
     --text-title: #E1E1E6;
     --text-body: #969cb3;
