@@ -16,7 +16,7 @@ const TransactionsTable = () => {
     api.get("/transactions/user?page=1&limit=20", config).then((response) => {
       setTransactions(response.data.data);
     });
-  }, []);
+  }, [transactions]);
 
   return (
     <Container>
