@@ -5,16 +5,23 @@ import { access_token } from "../../../../env";
 import { ICategory } from "../../../interfaces";
 
 interface CategorySelectProps {
-  onSelectCategory: (categoryName: string) => void;
+  onSelectCategory: (categoryName: string, categoryId: string) => void;
+}
+
+interface SelectedCategoryProps {
+  name: string;
+  categoryId: string;
 }
 
 const CategorySelect = (props: CategorySelectProps) => {
   const [categories, setCategories] = useState<ICategory[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  // const [selectedCategory, setSelectedCategory] =
+  //   useState<SelectedCategoryProps>({} as SelectedCategoryProps);
 
   function handleSelectCategory(event: any) {
-    setSelectedCategory(event.target.value);
-    props.onSelectCategory(event.target.value);
+    const [name, id] = event.target.value.split(",");
+    //setSelectedCategory({ name, categoryId: id });
+    props.onSelectCategory(name, id);
   }
 
   useEffect(() => {
@@ -26,19 +33,19 @@ const CategorySelect = (props: CategorySelectProps) => {
     api.get("/categories/user?page=1&limit=20", config).then((response) => {
       const categoriesData = response.data.data;
       setCategories(categoriesData);
-      props.onSelectCategory(categoriesData[0].name);
+      // setSelectedCategory({
+      //   name: categoriesData[0].name,
+      //   categoryId: categoriesData[0].id,
+      // });
+      props.onSelectCategory(categoriesData[0].name, categoriesData[0].id);
     });
   }, []);
 
   return (
-    <Container
-      name="select"
-      value={selectedCategory}
-      onChange={(event) => handleSelectCategory(event)}
-    >
+    <Container name="select" onChange={(event) => handleSelectCategory(event)}>
       {categories.map((category) => {
         return (
-          <option key={category.id} value={category.name}>
+          <option key={category.id} value={[category.name, category.id]}>
             {category.name}
           </option>
         );

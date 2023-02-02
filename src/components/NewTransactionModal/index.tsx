@@ -1,7 +1,9 @@
 import { FormEvent, useState } from "react";
 import Modal from "react-modal";
+import { access_token } from "../../../env";
 
 import closeImg from "../../assets/close.svg";
+import { api } from "../../services/api";
 import CategorySelect from "./CategorySelect";
 
 import { Container } from "./styles";
@@ -18,8 +20,9 @@ const NewTransactionModal = (props: NewTransactionModalProps) => {
   const [type, setType] = useState<string>("deposit");
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  function handleSelectCategory(categoryName: string) {
+  function handleSelectCategory(categoryName: string, categoryId: string) {
     setSelectedCategory(categoryName);
+    console.log(categoryName, categoryId);
   }
 
   function handleSelectTransactionType(transactionType: string) {
@@ -28,6 +31,23 @@ const NewTransactionModal = (props: NewTransactionModalProps) => {
 
   async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
+
+    // const token = access_token;
+    // const config = {
+    //   headers: { Authorization: `Bearer ${token}` },
+    // };
+    // const bodyParameters = {
+    //   title,
+    //   type: type.toUpperCase(),
+    //   amount,
+    //   categoryId: "",
+    // };
+
+    // api
+    //   .post("/transactions/user?page=1&limit=20", bodyParameters, config)
+    //   .then((response) => {
+    //     console.log(response.data);
+    //   });
 
     setTitle("");
     setAmount(0);
