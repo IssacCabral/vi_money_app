@@ -3,6 +3,7 @@ import logoImg from "../../assets/favicon.png";
 
 interface HeaderProps {
   onOpenNewTransactionModal: () => void;
+  onOpenNewCategoryModal: () => void;
 }
 
 const Header = (props: HeaderProps) => {
@@ -14,7 +15,12 @@ const Header = (props: HeaderProps) => {
           <h2>Vi Money</h2>
         </div>
         <div>
-          <button id="new_category_button">Nova categoria</button>
+          <button
+            id="new_category_button"
+            onClick={props.onOpenNewCategoryModal}
+          >
+            Nova categoria
+          </button>
           <button
             id="new_transaction_button"
             onClick={props.onOpenNewTransactionModal}

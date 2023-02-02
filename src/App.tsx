@@ -4,11 +4,14 @@ import Dashboard from "./components/Dashboard";
 import Modal from "react-modal";
 import NewTransactionModal from "./components/NewTransactionModal";
 import { useState } from "react";
+import NewCategoryModal from "./components/NewCategoryModal";
 
 Modal.setAppElement("#root");
 
 function App() {
   const [isNewTransactionModalOpen, setIsNewTransactionModelOpen] =
+    useState<boolean>(false);
+  const [isNewCategoryModalOpen, setIsNewCategoryModalOpen] =
     useState<boolean>(false);
 
   function handleOpenNewTransactionModal() {
@@ -19,15 +22,31 @@ function App() {
     setIsNewTransactionModelOpen(false);
   }
 
+  function handleOpenNewCategoryModal() {
+    setIsNewCategoryModalOpen(true);
+  }
+
+  function handleCloseNewCategoryModal() {
+    setIsNewCategoryModalOpen(false);
+  }
+
   return (
     <>
-      <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
+      <Header
+        onOpenNewTransactionModal={handleOpenNewTransactionModal}
+        onOpenNewCategoryModal={handleOpenNewCategoryModal}
+      />
       <Dashboard />
 
       <NewTransactionModal
         isOpen={isNewTransactionModalOpen}
         onRequestClose={handleCloseNewTransactionModal}
       ></NewTransactionModal>
+
+      <NewCategoryModal
+        isOpen={isNewCategoryModalOpen}
+        onRequestClose={handleCloseNewCategoryModal}
+      ></NewCategoryModal>
 
       <GlobalStyle />
     </>
