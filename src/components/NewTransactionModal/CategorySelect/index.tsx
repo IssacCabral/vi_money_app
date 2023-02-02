@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../../../services/api";
 import { Container } from "./styles";
+import { access_token } from "../../../../env";
 
 interface Category {
   id: string;
@@ -24,8 +25,7 @@ const CategorySelect = (props: CategorySelectProps) => {
   }
 
   useEffect(() => {
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NjY2ZGNjMC00NmQ3LTRmOTQtOGE5YS02MTFhMDgzNGRlZTgiLCJlbWFpbCI6Imlzc2FjQGVtYWlsLmNvbSIsImlhdCI6MTY3NTIwNDM3NywiZXhwIjoxNjc1MjkwNzc3fQ.8Da_2trJ-VLHYWEvLr7N2EOYZt7RRSYG9LFNhdZi57o";
+    const token = access_token;
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
