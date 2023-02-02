@@ -14,15 +14,20 @@ interface NewTransactionModalProps {
   onRequestClose: () => void;
 }
 
+interface SelectedCategoryProps {
+  name: string;
+  categoryId: string;
+}
+
 const NewTransactionModal = (props: NewTransactionModalProps) => {
   const [title, setTitle] = useState<string>("");
   const [amount, setAmount] = useState<number>(0);
   const [type, setType] = useState<string>("deposit");
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] =
+    useState<SelectedCategoryProps>({} as SelectedCategoryProps);
 
   function handleSelectCategory(categoryName: string, categoryId: string) {
-    setSelectedCategory(categoryName);
-    console.log(categoryName, categoryId);
+    setSelectedCategory({ name: categoryName, categoryId });
   }
 
   function handleSelectTransactionType(transactionType: string) {
@@ -32,26 +37,24 @@ const NewTransactionModal = (props: NewTransactionModalProps) => {
   async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
 
-    // const token = access_token;
-    // const config = {
-    //   headers: { Authorization: `Bearer ${token}` },
-    // };
-    // const bodyParameters = {
-    //   title,
-    //   type: type.toUpperCase(),
-    //   amount,
-    //   categoryId: "",
-    // };
+    const token = access_token;
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    const bodyParameters = {
+      categoryId: selectedCategory.categoryId,
+      title,
+      type: type.toUpperCase(),
+      amount: Number(amount),
+    };
 
-    // api
-    //   .post("/transactions/user?page=1&limit=20", bodyParameters, config)
-    //   .then((response) => {
-    //     console.log(response.data);
-    //   });
+    api.post("/transactions", bodyParameters, config).then((response) => {
+      console.log(response.data);
+    });
 
     setTitle("");
     setAmount(0);
-    setSelectedCategory("");
+    setSelectedCategory({} as SelectedCategoryProps);
     setType("deposit");
 
     props.onRequestClose();

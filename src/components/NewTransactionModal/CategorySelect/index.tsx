@@ -8,19 +8,11 @@ interface CategorySelectProps {
   onSelectCategory: (categoryName: string, categoryId: string) => void;
 }
 
-interface SelectedCategoryProps {
-  name: string;
-  categoryId: string;
-}
-
 const CategorySelect = (props: CategorySelectProps) => {
   const [categories, setCategories] = useState<ICategory[]>([]);
-  // const [selectedCategory, setSelectedCategory] =
-  //   useState<SelectedCategoryProps>({} as SelectedCategoryProps);
 
   function handleSelectCategory(event: any) {
     const [name, id] = event.target.value.split(",");
-    //setSelectedCategory({ name, categoryId: id });
     props.onSelectCategory(name, id);
   }
 
@@ -33,10 +25,6 @@ const CategorySelect = (props: CategorySelectProps) => {
     api.get("/categories/user?page=1&limit=20", config).then((response) => {
       const categoriesData = response.data.data;
       setCategories(categoriesData);
-      // setSelectedCategory({
-      //   name: categoriesData[0].name,
-      //   categoryId: categoriesData[0].id,
-      // });
       props.onSelectCategory(categoriesData[0].name, categoriesData[0].id);
     });
   }, []);
