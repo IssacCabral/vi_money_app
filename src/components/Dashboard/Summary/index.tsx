@@ -3,8 +3,43 @@ import { Container } from "./styles";
 import incomeImg from "../../../assets/income.svg";
 import outcomeImg from "../../../assets/outcome.svg";
 import totalImg from "../../../assets/total.svg";
+import { useEffect, useState } from "react";
+import { ITransaction } from "../../../interfaces";
+import { access_token } from "../../../../env";
+import { api } from "../../../services/api";
 
 const Summary = () => {
+  const [transactions, setTransactions] = useState<ITransaction[]>([]);
+
+  const summary = transactions.reduce(
+    (accumulated, transaction) => {
+      if (transaction.type === "DEPOSIT") {
+        accumulated.deposits += transaction.amount;
+        accumulated.total += transaction.amount;
+      } else {
+        accumulated.withdraws += transaction.amount;
+        accumulated.total -= transaction.amount;
+      }
+      return accumulated;
+    },
+    {
+      deposits: 0,
+      withdraws: 0,
+      total: 0,
+    }
+  );
+
+  useEffect(() => {
+    const token = access_token;
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    api.get("/transactions/user?page=1&limit=20", config).then((response) => {
+      setTransactions(response.data.data);
+    });
+  }, [transactions]);
+
   return (
     <Container>
       <div>
@@ -16,7 +51,7 @@ const Summary = () => {
           {new Intl.NumberFormat("pt-BR", {
             style: "currency",
             currency: "BRL",
-          }).format(3500)}
+          }).format(summary.deposits)}
         </strong>
       </div>
 
@@ -30,7 +65,7 @@ const Summary = () => {
           {new Intl.NumberFormat("pt-BR", {
             style: "currency",
             currency: "BRL",
-          }).format(500)}
+          }).format(summary.withdraws)}
         </strong>
       </div>
 
@@ -43,7 +78,7 @@ const Summary = () => {
           {new Intl.NumberFormat("pt-BR", {
             style: "currency",
             currency: "BRL",
-          }).format(3000)}
+          }).format(summary.total)}
         </strong>
       </div>
     </Container>
