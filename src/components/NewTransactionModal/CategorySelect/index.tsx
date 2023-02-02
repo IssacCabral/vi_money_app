@@ -2,21 +2,14 @@ import { useEffect, useState } from "react";
 import { api } from "../../../services/api";
 import { Container } from "./styles";
 import { access_token } from "../../../../env";
-
-interface Category {
-  id: string;
-  userId: string;
-  name: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { ICategory } from "../../../interfaces";
 
 interface CategorySelectProps {
   onSelectCategory: (categoryName: string) => void;
 }
 
 const CategorySelect = (props: CategorySelectProps) => {
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<ICategory[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
 
   function handleSelectCategory(event: any) {
