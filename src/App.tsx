@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import NewTransactionModal from "./components/NewTransactionModal";
 import { useState } from "react";
 import NewCategoryModal from "./components/NewCategoryModal";
+import SignIn from "./components/SignIn";
 
 Modal.setAppElement("#root");
 
@@ -32,6 +33,8 @@ function App() {
 
   return (
     <>
+      <SignIn />
+
       <Header
         onOpenNewTransactionModal={handleOpenNewTransactionModal}
         onOpenNewCategoryModal={handleOpenNewCategoryModal}
